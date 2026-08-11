@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Draw Admin (Serverless)</title>
+    <!-- Include Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Include PapaParse for CSV parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #020617;
+            color: #e2e8f0;
+            margin: 0;
+            padding: 40px;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { color: #FFD700; text-align: center; margin-bottom: 10px; }
+        p.subtitle { text-align: center; color: #94a3b8; margin-bottom: 40px; }
+        
+        .card {
+            background: #0f172a; border: 1px solid #1e293b;
+            border-radius: 12px; padding: 25px; margin-bottom: 25px;
+        }
+        .card h2 { margin-top: 0; color: #38bdf8; font-size: 22px; }
+        .card p { color: #94a3b8; font-size: 15px; margin-bottom: 20px; }
+        
+        button {
+            display: block; width: 100%; padding: 15px;
+            font-size: 20px; font-weight: bold;
+            border: none; border-radius: 8px; cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            color: white;
+        }
+        button:hover { transform: scale(1.02); }
+        button:disabled { background: #475569 !important; cursor: not-allowed; transform: none; box-shadow: none; }
+        
+        .btn-blue { background: #0284c7; }
+        .btn-blue:hover { background: #0369a1; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4); }
+        
+        .btn-red { background: linear-gradient(135deg, #C0000A, #FF4500); }
+        .btn-red:hover { box-shadow: 0 4px 20px rgba(255, 50, 0, 0.4); }
+
+        .file-input { margin-bottom: 15px; }
+        
+        .status { margin-top: 15px; font-weight: bold; color: #10b981; display: none; }
+        .error { color: #ef4444; display: none; margin-top: 15px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Admin Control Portal</h1>
+        <p class="subtitle">100% Serverless. Direct Database Connection.</p>
+        
+        <!-- SECTION 1: DATABASE SETUP -->
+        <div class="card">
+            <h2>1. Upload Master Data</h2>
+            <p>Select your <b>master_data.csv</b> file. This will wipe the old database and upload these customers into the <b>master_customers</b> table.</p>
+            <input type="file" id="csvFile" class="file-input" accept=".csv" />
+            <button class="btn-blue" id="uploadBtn" onclick="uploadData()">📤 Upload & Sync to Database</button>
+            <div id="uploadStatus" class="status"></div>
+            <div id="uploadError" class="error"></div>
+        </div>
+
+        <!-- SECTION 2: DRAW WINNERS -->
+        <div class="card">
+            <h2>2. Execute the Lucky Draw</h2>
+            <p>This runs the weighted algorithm, completely clearing old winners and inserting the 57 new winners directly into the <b>draw_winners</b> database table.</p>
+            <button class="btn-red" id="drawBtn" onclick="runDraw()">🎲 Run Algorithm & Draw Winners</button>
+            <div id="drawStatus" class="status"></div>
+            <div id="drawError" class="error"></div>
+        </div>
+        
+    </div>
+
+    <script>
+        // ======= INITIALIZE SUPABASE =======
+        // PASTE YOUR CREDENTIALS HERE
+        const SUPABASE_URL = 'https://zmjheixjfwbbixptveie.supabase.co';
+        // Using the SERVICE ROLE KEY here because this is the ADMIN script.
+        // It allows us to bypass RLS and do massive deletes/inserts.
+        const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InptamhlaXhqZndiYml4cHR2ZWllIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4NDUxODc5MiwiZXhwIjoyMTAwMDk0NzkyfQ.0HzNeGXdw0GFNrTtJpUNz2RSlaKgaVTlodpGEtdqWBE';
+        
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
+
+        // ======= 1. UPLOAD CSV TO DATABASE =======
+        async function uploadData() {
+            const fileInput = document.getElementById('csvFile');
+            const btn = document.getElementById('uploadBtn');
+            const status = document.getElementById('uploadStatus');
+            const error = document.getElementById('uploadError');
+            
+            if (!fileInput.files.length) {
+                alert("Please select a CSV file first.");
+                return;
+            }
+
+            status.style.display = 'none'; error.style.display = 'none';
+            btn.disabled = true; btn.innerText = "Syncing... Please wait...";
+
+            Papa.parse(fileInput.files[0], {
+                header: true,
+                skipEmptyLines: true,
+                complete: async function(results) {
+                    try {
+                        const rawData = results.data;
+                        const dbRows = [];
+                        
+                        // Map CSV headers to Database columns
+                        for (let row of rawData) {
+                            if (!row['CUSTOMER CODE']) continue;
+                            dbRows.push({
+                                region: row['Region'] || '',
+                                territory: row['Territory'] || '',
+                                customer_name: row['CUSTOMER NAME'] || '',
+                                customer_code: row['CUSTOMER CODE'] || '',
+                                sum_of_max_coupons: parseInt(row['Sum of Max Coupons']) || 0
+                            });
+                        }
+
+                        // Wipe old customers
+                        btn.innerText = "Clearing old database...";
+                        const { error: delErr } = await supabase.from('master_customers').delete().neq('id', 0);
+                        if(delErr) throw delErr;
+
+                        // Insert new customers in batches of 1000
+                        btn.innerText = "Inserting new customers...";
+                        const batchSize = 1000;
+                        for (let i = 0; i < dbRows.length; i += batchSize) {
+                            const batch = dbRows.slice(i, i + batchSize);
+                            const { error: insErr } = await supabase.from('master_customers').insert(batch);
+                            if(insErr) throw insErr;
+                        }
+
+                        status.innerText = `✅ Successfully synced ${dbRows.length} customers to the database!`;
+                        status.style.display = 'block';
+                    } catch (err) {
+                        console.error(err);
+                        error.innerText = "Error: " + err.message;
+                        error.style.display = 'block';
+                    } finally {
+                        btn.disabled = false;
+                        btn.innerText = "📤 Upload & Sync to Database";
+                        fileInput.value = ''; // Reset file input
+                    }
+                }
+            });
+        }
+
+        // ======= 2. DRAW LOGIC (MIGRATED FROM PYTHON) =======
+        async function runDraw() {
+            const btn = document.getElementById('drawBtn');
+            const status = document.getElementById('drawStatus');
+            const error = document.getElementById('drawError');
+            
+            status.style.display = 'none'; error.style.display = 'none';
+            btn.disabled = true; btn.innerText = 'Calculating Winners...';
+
+            try {
+                // 1. Fetch all eligible customers
+                const { data: customers, error: fetchErr } = await supabase
+                    .from('master_customers')
+                    .select('*')
+                    .gt('sum_of_max_coupons', 0);
+                
+                if (fetchErr) throw fetchErr;
+
+                // Build lookup map
+                const customerMap = {};
+                for (let c of customers) {
+                    customerMap[c.customer_code] = { ...c, coupons: c.sum_of_max_coupons };
+                }
+
+                // 2. Define the Draw Queue
+                const drawQueue = [
+                    { tier: '5th_prize', count: 200 },
+                    { tier: '4th_prize', count: 100 },
+                    { tier: '3rd_prize', count: 50 },
+                    { tier: 'mega_prize', count: 2 },
+                    { tier: 'grand_prize', count: 1 }
+                ];
+
+                const finalWinners = []; // Array of DB rows to insert
+
+                for (let draw of drawQueue) {
+                    const tierWinnerCodes = new Set();
+
+                    for (let i = 0; i < draw.count; i++) {
+                        // Build eligible pool dynamically
+                        const eligibleCodes = [];
+                        const eligibleWeights = [];
+
+                        for (const code in customerMap) {
+                            const data = customerMap[code];
+                            if (data.coupons > 0 && !tierWinnerCodes.has(code)) {
+                                eligibleCodes.push(code);
+                                eligibleWeights.push(data.coupons);
+                            }
+                        }
+
+                        if (eligibleCodes.length === 0) break; // Not enough unique users
+
+                        // Weighted Random Selection in JS
+                        const winnerCode = weightedRandom(eligibleCodes, eligibleWeights);
+                        
+                        // Deduct coupon and record winner
+                        customerMap[winnerCode].coupons -= 1;
+                        tierWinnerCodes.add(winnerCode);
+
+                        const w = customerMap[winnerCode];
+                        finalWinners.push({
+                            prize_tier: draw.tier,
+                            region: w.region,
+                            territory: w.territory,
+                            customer_name: w.customer_name,
+                            customer_code: w.customer_code
+                        });
+                    }
+                }
+
+                // 3. Save to Database
+                btn.innerText = 'Updating Database...';
+                
+                // Clear old winners
+                const { error: delErr } = await supabase.from('draw_winners').delete().neq('id', 0);
+                if(delErr) throw delErr;
+
+                // Insert new winners
+                if (finalWinners.length > 0) {
+                    const { error: insErr } = await supabase.from('draw_winners').insert(finalWinners);
+                    if(insErr) throw insErr;
+                }
+
+                status.innerText = `✅ Draw Complete! Generated ${finalWinners.length} total winners.`;
+                status.style.display = 'block';
+            } catch (err) {
+                console.error(err);
+                error.innerText = "Error: " + err.message;
+                error.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.innerText = '🎲 Run Algorithm & Draw Winners';
+            }
+        }
+
+        // Helper Function: Weighted Random Selection
+        function weightedRandom(items, weights) {
+            let totalWeight = 0;
+            for(let i=0; i<weights.length; i++) totalWeight += weights[i];
+            
+            let random = Math.random() * totalWeight;
+            for (let i = 0; i < items.length; i++) {
+                if (random < weights[i]) {
+                    return items[i];
+                }
+                random -= weights[i];
+            }
+            return items[items.length - 1]; // Fallback
+        }
+    </script>
+</body>
+</html>

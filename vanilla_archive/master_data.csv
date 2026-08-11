@@ -1,0 +1,104 @@
+Region,Territory,CUSTOMER NAME,CUSTOMER CODE,Sum of Max Coupons
+Ahmedabad,Baroda,Avadhoot Agro Sales,10006413,1
+Akola,Amravati,Bajaj Seeds  & Pesticides,10005955,5
+Bathinda,Abohar,Garg Agro Chemicals,10001552,2
+Akola,Amravati,Farmers Hub 0,20000000,5
+Ahmedabad,South,Green World 1,20000001,10
+Akola,West,Farmers Hub 2,20000002,2
+Ahmedabad,Abohar,Agro Chemicals 3,20000003,10
+Pune,South,Farmers Hub 4,20000004,7
+Akola,Abohar,Agro Chemicals 5,20000005,7
+Akola,West,Kisan Store 6,20000006,6
+Akola,Baroda,Kisan Store 7,20000007,3
+Chennai,Amravati,Agro Sales 8,20000008,7
+Ahmedabad,South,Agro Sales 9,20000009,10
+Ahmedabad,West,Kisan Store 10,20000010,1
+Ahmedabad,Amravati,Agro Sales 11,20000011,8
+Ahmedabad,Abohar,Agro Chemicals 12,20000012,3
+Bathinda,Amravati,Agro Chemicals 13,20000013,10
+Pune,Amravati,Farmers Hub 14,20000014,7
+Chennai,West,Farmers Hub 15,20000015,10
+Bathinda,West,Green World 16,20000016,6
+Chennai,Baroda,Agro Sales 17,20000017,9
+Akola,Amravati,Agro Chemicals 18,20000018,8
+Bathinda,Abohar,Agro Chemicals 19,20000019,9
+Bathinda,Abohar,Agro Chemicals 20,20000020,3
+Chennai,Amravati,Green World 21,20000021,6
+Chennai,Baroda,Seeds & Pesticides 22,20000022,2
+Bathinda,West,Agro Sales 23,20000023,1
+Delhi,Baroda,Seeds & Pesticides 24,20000024,7
+Delhi,West,Agro Chemicals 25,20000025,3
+Pune,Abohar,Agro Chemicals 26,20000026,8
+Delhi,Abohar,Agro Sales 27,20000027,3
+Ahmedabad,West,Agro Sales 28,20000028,5
+Akola,Amravati,Agro Chemicals 29,20000029,7
+Bathinda,Amravati,Agro Chemicals 30,20000030,3
+Ahmedabad,Amravati,Farmers Hub 31,20000031,10
+Chennai,South,Seeds & Pesticides 32,20000032,3
+Delhi,Baroda,Green World 33,20000033,3
+Akola,Abohar,Farmers Hub 34,20000034,2
+Bathinda,West,Agro Sales 35,20000035,7
+Pune,Amravati,Seeds & Pesticides 36,20000036,8
+Bathinda,Amravati,Agro Sales 37,20000037,7
+Bathinda,Abohar,Agro Chemicals 38,20000038,8
+Ahmedabad,North,Kisan Store 39,20000039,1
+Akola,Baroda,Seeds & Pesticides 40,20000040,2
+Akola,Amravati,Agro Chemicals 41,20000041,4
+Ahmedabad,Baroda,Green World 42,20000042,1
+Akola,South,Seeds & Pesticides 43,20000043,6
+Delhi,Abohar,Seeds & Pesticides 44,20000044,8
+Chennai,North,Seeds & Pesticides 45,20000045,2
+Delhi,Amravati,Green World 46,20000046,8
+Delhi,Abohar,Seeds & Pesticides 47,20000047,7
+Akola,South,Green World 48,20000048,3
+Pune,West,Green World 49,20000049,2
+Pune,Amravati,Agro Sales 50,20000050,2
+Ahmedabad,Amravati,Agro Chemicals 51,20000051,9
+Ahmedabad,South,Agro Chemicals 52,20000052,10
+Chennai,South,Kisan Store 53,20000053,2
+Delhi,Amravati,Agro Chemicals 54,20000054,9
+Ahmedabad,Amravati,Seeds & Pesticides 55,20000055,1
+Delhi,West,Agro Chemicals 56,20000056,5
+Akola,North,Kisan Store 57,20000057,10
+Bathinda,South,Kisan Store 58,20000058,8
+Pune,Baroda,Farmers Hub 59,20000059,10
+Chennai,Abohar,Farmers Hub 60,20000060,5
+Ahmedabad,North,Agro Sales 61,20000061,6
+Delhi,South,Green World 62,20000062,6
+Chennai,Baroda,Seeds & Pesticides 63,20000063,9
+Delhi,South,Agro Chemicals 64,20000064,6
+Ahmedabad,Abohar,Agro Chemicals 65,20000065,1
+Bathinda,West,Kisan Store 66,20000066,8
+Akola,Abohar,Green World 67,20000067,4
+Chennai,West,Agro Chemicals 68,20000068,7
+Chennai,North,Agro Chemicals 69,20000069,5
+Ahmedabad,North,Green World 70,20000070,5
+Ahmedabad,West,Green World 71,20000071,4
+Pune,Amravati,Agro Chemicals 72,20000072,5
+Pune,North,Agro Chemicals 73,20000073,2
+Pune,Abohar,Seeds & Pesticides 74,20000074,3
+Bathinda,North,Farmers Hub 75,20000075,9
+Bathinda,West,Kisan Store 76,20000076,7
+Ahmedabad,Abohar,Agro Chemicals 77,20000077,3
+Akola,West,Kisan Store 78,20000078,3
+Bathinda,Baroda,Kisan Store 79,20000079,4
+Ahmedabad,West,Seeds & Pesticides 80,20000080,6
+Akola,Abohar,Agro Sales 81,20000081,1
+Bathinda,Amravati,Agro Sales 82,20000082,6
+Akola,North,Seeds & Pesticides 83,20000083,9
+Ahmedabad,West,Kisan Store 84,20000084,10
+Delhi,Baroda,Green World 85,20000085,9
+Pune,South,Kisan Store 86,20000086,1
+Ahmedabad,Amravati,Kisan Store 87,20000087,7
+Delhi,Baroda,Agro Sales 88,20000088,1
+Akola,South,Kisan Store 89,20000089,9
+Delhi,South,Kisan Store 90,20000090,6
+Delhi,North,Agro Sales 91,20000091,3
+Pune,North,Kisan Store 92,20000092,7
+Chennai,West,Agro Sales 93,20000093,6
+Bathinda,Abohar,Agro Sales 94,20000094,4
+Akola,Abohar,Green World 95,20000095,7
+Akola,South,Agro Chemicals 96,20000096,3
+Akola,West,Seeds & Pesticides 97,20000097,4
+Bathinda,West,Agro Chemicals 98,20000098,2
+Chennai,South,Seeds & Pesticides 99,20000099,7

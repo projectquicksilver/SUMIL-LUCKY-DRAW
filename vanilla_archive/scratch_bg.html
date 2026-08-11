@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Background Test</title>
+<style>
+  body, html { margin: 0; height: 100%; overflow: hidden; background: #01020a; }
+  
+  .hero-bg {
+    position: fixed; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse at bottom, #1136b8 0%, #061445 40%, #01020a 100%);
+  }
+  
+  /* Floor Grid and Glow */
+  .hero-bg::before {
+    content: ''; position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse at 50% 100%, rgba(0, 191, 255, 0.8) 0%, transparent 50%),
+      linear-gradient(transparent 90%, rgba(80,150,255,0.2) 91%, transparent 92%),
+      linear-gradient(90deg, transparent 90%, rgba(80,150,255,0.2) 91%, transparent 92%);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+    transform: perspective(600px) rotateX(60deg) scale(2);
+    transform-origin: bottom center;
+    pointer-events: none; z-index: 1;
+    opacity: 0.6;
+  }
+  
+  /* Particles */
+  .hero-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background-image: 
+      radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+      radial-gradient(2px 2px at 40% 70%, #ffdf00, transparent),
+      radial-gradient(2px 2px at 60% 20%, #fff, transparent),
+      radial-gradient(3px 3px at 80% 40%, #ffdf00, transparent),
+      radial-gradient(2px 2px at 90% 80%, #fff, transparent),
+      radial-gradient(2px 2px at 10% 80%, #ffdf00, transparent),
+      radial-gradient(3px 3px at 30% 10%, #fff, transparent),
+      radial-gradient(2px 2px at 70% 90%, #ffdf00, transparent),
+      radial-gradient(2px 2px at 50% 40%, #fff, transparent);
+    background-size: 150px 150px;
+    opacity: 0.5;
+    animation: twinkleBg 4s infinite alternate;
+    pointer-events: none; z-index: 2;
+  }
+  @keyframes twinkleBg { 0% { opacity: 0.2; } 100% { opacity: 0.6; } }
+
+  /* ── SPOTLIGHTS & RAYS ── */
+  .rays { position: fixed; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
+  
+  /* Top Criss-Cross Rays */
+  .rays::before, .rays::after {
+    content: ''; position: absolute; top: -20%; width: 150%; height: 150%;
+    background: conic-gradient(from 135deg at 50% 0%, 
+      transparent 0deg,
+      transparent 10deg, rgba(80, 150, 255, 0.5) 11deg, transparent 12deg,
+      transparent 20deg, rgba(255, 255, 255, 0.7) 21deg, transparent 22deg,
+      transparent 35deg, rgba(80, 150, 255, 0.4) 36deg, transparent 37deg,
+      transparent 45deg, rgba(80, 150, 255, 0.6) 46deg, transparent 47deg,
+      transparent 60deg, rgba(255, 255, 255, 0.5) 61deg, transparent 62deg,
+      transparent 75deg, rgba(80, 150, 255, 0.3) 76deg, transparent 77deg,
+      transparent 90deg
+    );
+    mask-image: radial-gradient(ellipse at 50% 0%, black 10%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 0%, black 10%, transparent 70%);
+  }
+  
+  .rays::before {
+    left: -20%;
+    transform: rotate(20deg);
+    transform-origin: top left;
+  }
+  .rays::after {
+    right: -20%;
+    transform: rotate(-20deg) scaleX(-1);
+    transform-origin: top right;
+  }
+
+</style>
+</head>
+<body>
+  <div class="hero-bg"></div>
+  <div class="rays"></div>
+</body>
+</html>

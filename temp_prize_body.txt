@@ -1,0 +1,413 @@
+
+
+
+
+
+
+
+<a class="home-btn" href="index.html">
+  <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+  HOME
+</a>
+
+<section class="hero">
+  
+  <div class="stage">
+    <div class="dot-wall left"></div><div class="dot-wall right"></div>
+    <div class="floor"></div>
+    <div class="laser b1"><div class="halo"></div><div class="core"></div><div class="pulse"></div></div>
+    <div class="laser b2"><div class="halo"></div><div class="core"></div><div class="pulse"></div></div>
+    <div class="laser gold b3"><div class="halo"></div><div class="core"></div><div class="pulse"></div></div>
+    <div class="laser gold b4"><div class="halo"></div><div class="core"></div><div class="pulse"></div></div>
+    <div class="laser b5"><div class="halo"></div><div class="core"></div><div class="pulse"></div></div>
+    <div class="laser b6"><div class="halo"></div><div class="core"></div><div class="pulse"></div></div>
+    <div class="laser b7"><div class="halo"></div><div class="core"></div><div class="pulse"></div></div>
+    <div class="emitter e1"></div><div class="emitter e2"></div><div class="emitter gold e3"></div><div class="emitter gold e4"></div><div class="emitter e5"></div><div class="emitter e6"></div><div class="emitter e7"></div>
+    <div class="floor-glow"></div><div class="impact"></div>
+    <div class="streak gold st1"></div><div class="streak blue st2"></div><div class="streak blue st3"></div><div class="streak gold st4"></div>
+    <div class="particle white" style="left: 12%; top: 18%; width: 4px; height: 4px;"></div>
+    <div class="particle blue" style="left: 22%; top: 34%; width: 3px; height: 3px; animation-delay: .8s;"></div>
+    <div class="particle gold" style="left: 30%; top: 26%; width: 5px; height: 3px; animation-delay: 1.6s;"></div>
+    <div class="particle white" style="left: 38%; top: 14%; width: 3px; height: 3px; animation-delay: .4s;"></div>
+    <div class="particle blue" style="left: 45%; top: 30%; width: 4px; height: 4px; animation-delay: 2s;"></div>
+    <div class="particle gold" style="left: 58%; top: 22%; width: 5px; height: 3px; animation-delay: 1.1s;"></div>
+    <div class="particle white" style="left: 66%; top: 12%; width: 3px; height: 3px; animation-delay: .2s;"></div>
+    <div class="particle blue" style="left: 74%; top: 28%; width: 4px; height: 4px; animation-delay: 1.8s;"></div>
+    <div class="particle gold" style="left: 82%; top: 36%; width: 5px; height: 3px; animation-delay: .6s;"></div>
+    <div class="particle white" style="left: 88%; top: 20%; width: 4px; height: 4px; animation-delay: 2.4s;"></div>
+    <div class="particle blue" style="left: 16%; top: 48%; width: 3px; height: 3px; animation-delay: 1.4s;"></div>
+    <div class="particle blue" style="left: 84%; top: 50%; width: 3px; height: 3px; animation-delay: .9s;"></div>
+    <div class="particle gold" style="left: 55%; top: 42%; width: 4px; height: 3px; animation-delay: 2.2s;"></div>
+    <div class="particle white" style="left: 50%; top: 8%; width: 3px; height: 3px; animation-delay: 1s;"></div>
+    <div class="vignette"></div>
+  </div>
+
+  
+  
+
+  <div class="content">
+
+    <!-- LOGOS -->
+    <div class="header-logos">
+      <img src="assets/images/sumil_logo.png" alt="Sumil Logo" class="logo-left">
+    </div>
+
+    <!-- PRIZE IMAGE ONLY — no text labels -->
+    <div class="prize-img-wrap">
+      <img id="prize-img" src="" alt="Prize" class="prize-img">
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="divider" style="display: none;">
+      <div class="div-line"></div>
+      <span class="div-txt" id="div-label">✦ Click Card to Spin ✦</span>
+      <div class="div-line"></div>
+    </div>
+
+    <!-- CARD / WHEEL -->
+    <div class="card-zone">
+      <div class="spin-action-area" id="card-wrap">
+        <img id="card-img" src="" alt="prize" class="floating-prize-img" style="display: none;">
+        <div class="spin-text-top">SPIN THE WHEEL & WIN</div>
+        <div class="spin-text-sub"><span class="line"></span> AMAZING PRIZES <span class="line"></span></div>
+        <button class="spin-now-btn">SPIN NOW <span class="arrow">›</span></button>
+      </div>
+
+      <div id="wheel-zone">
+        <div class="wheel-outer-wrap">
+          <div class="wheel-halo">
+            <div class="wheel-container" id="wheel-container">
+              <div class="wheel-pointer"></div>
+              <canvas id="wheel-canvas"></canvas>
+              <div class="wheel-center-btn" id="spin-btn">
+                <div class="spin-text">SPIN</div>
+                <div class="ampersand">&amp;</div>
+                <div class="win-text">WIN</div>
+              </div>
+            </div>
+          </div>
+          <div class="wheel-label" id="wheel-label">✦ TAP THE WHEEL TO SPIN ✦</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- REVEAL BUTTON -->
+<div id="reveal-btn-wrap">
+  <button id="reveal-btn" onclick="openModal()">🏆 &nbsp;REVEAL WINNERS!</button>
+</div>
+
+<!-- MODAL -->
+<div id="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">🏆 Lucky Draw Winners</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="carousel-content"></div>
+    <div class="carousel-nav">
+      <button class="nav-btn" id="prev-btn" onclick="changePage(-1)">← Prev</button>
+      <div class="page-info-wrap">
+        <span class="page-label" id="page-label">Winner</span>
+        <span class="page-num" id="page-num">1</span>
+        <span class="page-of" id="page-of">of 2</span>
+      </div>
+      <button class="nav-btn" id="next-btn" onclick="changePage(1)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/audio.js?v=3"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ══ INITIALIZE SUPABASE ══ */
+const SUPABASE_URL = 'https://zmjheixjfwbbixptveie.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InptamhlaXhqZndiYml4cHR2ZWllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ1MTg3OTIsImV4cCI6MjEwMDA5NDc5Mn0.U9mBHdIryo7RPhnbFemurfrhrjKV7pngD8vC-sfjjSA';
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/* ══ PRIZE CONFIG ══ */
+const prizes={
+  0:{img:'assets/screen_wise_prizes/harley_podium.png',       rank:'GRAND PRIZE', icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>',   tier:'grand_prize',        pageSize:1},
+  1:{img:'assets/screen_wise_prizes/bullet_podium.png',              rank:'MEGA PRIZE', icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>',    tier:'mega_prize',         pageSize:2},
+  2:{img:'assets/screen_wise_prizes/cash_counting_podium.png', rank:'3RD PRIZE', icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15"/><path d="M11 12 5.12 2.2"/><path d="m13 12 5.88-9.8"/><path d="M8 7h8"/><circle cx="12" cy="17" r="5"/><path d="M12 18v-2h-.5"/></svg>',    tier:'3rd_prize',         pageSize:10},
+  3:{img:'assets/screen_wise_prizes/godrej_safe_podium.png',           rank:'4TH PRIZE', icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>',    tier:'4th_prize',         pageSize:20},
+  4:{img:'assets/screen_wise_prizes/chair_cushion.png', rank:'5TH PRIZE', icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',tier:'5th_prize', pageSize:25}
+};
+
+const params=new URLSearchParams(location.search);
+const prizeId=parseInt(params.get('prize'));
+const prize=prizes[prizeId]||prizes[1];
+
+document.getElementById('prize-img').src=prize.img;
+document.getElementById('card-img').src=prize.img;
+document.getElementById('modal-title').innerHTML = `<span style='display:inline-flex;align-items:center;gap:8px;'>${prize.icon} ${prize.rank} — Winners</span>`;
+
+
+
+/* ══ CARD → WHEEL ══ */
+document.getElementById('card-wrap').addEventListener('click',function(){
+  if(window.LuckyAudio)LuckyAudio.whoosh();
+  this.style.display='none';
+  document.getElementById('wheel-zone').classList.add('active');
+  document.body.classList.add('spin-mode');
+  document.getElementById('div-label').textContent='✦ Tap Wheel to Spin ✦';
+  initWheel();
+});
+
+/* ══ VIBRANT WHEEL ══ */
+let spinning=false,wheelAngle=0,wheelDrawn=false;
+
+const SEGS=[
+  {color:'#1A237E',light:'#3949AB'}, // Deep Navy
+  {color:'#4A148C',light:'#7B1FA2'}, // Rich Purple
+  {color:'#006064',light:'#0097A7'}, // Dark Cyan
+  {color:'#1B5E20',light:'#388E3C'}, // Forest Green
+  {color:'#F57F17',light:'#FBC02D'}, // Gold / Yellow
+  {color:'#311B92',light:'#512DA8'}, // Deep Violet
+  {color:'#01579B',light:'#0288D1'}, // Ocean Blue
+  {color:'#880E4F',light:'#C2185B'}, // Ruby / Magenta
+  {color:'#004D40',light:'#00796B'}, // Emerald
+  {color:'#4A148C',light:'#7B1FA2'}, // Rich Purple
+];
+const NS=SEGS.length;
+let emojiImgs=[];
+
+function preload(cb){
+  cb();
+}
+
+function initWheel(){
+  if(wheelDrawn)return;wheelDrawn=true;
+  preload(()=>{
+    const cv=document.getElementById('wheel-canvas');
+    const S=Math.min(document.querySelector('.wheel-container').offsetWidth, 240); // Reduced size to 240 to prevent overlapping
+    cv.width=S;cv.height=S;drawWheel(cv,wheelAngle);
+  });
+  document.getElementById('spin-btn').addEventListener('click',spinWheel);
+}
+
+function drawWheel(cv,angle){
+  const ctx=cv.getContext('2d'),S=cv.width,cx=S/2,cy=S/2,R=S/2-10;
+  const ARC=(Math.PI*2)/NS;
+  ctx.clearRect(0,0,S,S);
+
+  /* Outer Gold Border */
+  ctx.save();ctx.shadowColor='rgba(255,200,0,.9)';ctx.shadowBlur=22;
+  ctx.beginPath();ctx.arc(cx,cy,R+14,0,Math.PI*2);
+  const oRim=ctx.createLinearGradient(0,0,S,S);
+  oRim.addColorStop(0,'#FFD700');oRim.addColorStop(.5,'#D4A017');oRim.addColorStop(1,'#B8860B');
+  ctx.fillStyle=oRim;ctx.fill();ctx.restore();
+
+  /* Dark Purple Rim Body */
+  ctx.save();
+  ctx.beginPath();ctx.arc(cx,cy,R+10,0,Math.PI*2);
+  ctx.fillStyle='#230b42';ctx.fill();
+  ctx.restore();
+
+  /* Rim dots */
+  for(let d=0;d<30;d++){
+    const da=angle+(d/30)*Math.PI*2;
+    const dx=cx+Math.cos(da)*(R+5),dy=cy+Math.sin(da)*(R+5);
+    ctx.save();ctx.shadowColor='rgba(255,255,200,1)';ctx.shadowBlur=16;
+    ctx.beginPath();ctx.arc(dx,dy,2.5,0,Math.PI*2);
+    ctx.fillStyle='#FFFFFF';ctx.fill();
+    ctx.shadowBlur=5;ctx.beginPath();ctx.arc(dx,dy,1.5,0,Math.PI*2);
+    ctx.fillStyle='#FFFFF0';ctx.fill();ctx.restore();
+  }
+
+  /* Inner gold ring */
+  ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);ctx.strokeStyle='rgba(255,215,0,.8)';ctx.lineWidth=3;ctx.stroke();ctx.restore();
+
+  /* Segments */
+  for(let i=0;i<NS;i++){
+    const start=angle+i*ARC-Math.PI/2,end=start+ARC;
+    ctx.save();
+    
+    // Segment background
+    const grd=ctx.createRadialGradient(cx,cy,0,cx,cy,R);
+    grd.addColorStop(0,SEGS[i].light);grd.addColorStop(.55,SEGS[i].color);grd.addColorStop(1,dk(SEGS[i].color,55));
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,R,start,end);ctx.closePath();
+    ctx.fillStyle=grd;ctx.fill();
+    
+    // Stardust Texture
+    ctx.clip(); // Restrict stardust to just this segment
+    for(let s=0;s<35;s++){
+      const rDist = (Math.sin(i*20 + s*45)*0.5+0.5) * R;
+      const rAng = start + (Math.cos(i*30 + s*15)*0.5+0.5) * ARC;
+      const stX = cx + Math.cos(rAng)*rDist;
+      const stY = cy + Math.sin(rAng)*rDist;
+      ctx.beginPath();ctx.arc(stX,stY,Math.random()*1.2,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,'+(Math.random()*0.6+0.1)+')';
+      ctx.fill();
+    }
+    
+    // Sheen
+    const shGrd=ctx.createLinearGradient(cx+Math.cos(start)*R*.3,cy+Math.sin(start)*R*.3,cx+Math.cos(end)*R*.3,cy+Math.sin(end)*R*.3);
+    shGrd.addColorStop(0,'rgba(255,255,255,.22)');shGrd.addColorStop(.5,'rgba(255,255,255,.06)');shGrd.addColorStop(1,'rgba(0,0,0,.1)');
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,R,start,end);ctx.closePath();ctx.fillStyle=shGrd;ctx.fill();
+    ctx.restore();
+    
+    // Divider
+    ctx.save();ctx.shadowColor='rgba(255,240,100,.5)';ctx.shadowBlur=4;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(start)*R,cy+Math.sin(start)*R);
+    ctx.strokeStyle='rgba(255,230,80,.8)';ctx.lineWidth=2;ctx.stroke();ctx.restore();
+  }
+
+  // Center Hub is now an HTML element (.wheel-center-btn)
+}
+
+function dk(hex,a){const n=parseInt(hex.slice(1),16);return`rgb(${Math.max(0,((n>>16)&0xff)-a)},${Math.max(0,((n>>8)&0xff)-a)},${Math.max(0,(n&0xff)-a)})`;}
+
+function spinWheel(){
+  if(spinning)return;spinning=true;
+  document.getElementById('wheel-label').textContent='🎰 SPINNING...';
+  const cv=document.getElementById('wheel-canvas');
+  const total=(Math.PI*2)*(6+Math.random()*5);
+  const dur=4800,t0=performance.now(),a0=wheelAngle;
+  const SEGARC=(Math.PI*2)/NS;let lastSeg=Math.floor(a0/SEGARC);
+  function ease(t){return 1-Math.pow(1-t,4);}
+  function frame(now){
+    const el=Math.min(now-t0,dur),t=el/dur;
+    wheelAngle=a0+total*ease(t);
+    const seg=Math.floor(wheelAngle/SEGARC);
+    if(seg!==lastSeg){lastSeg=seg;if(window.LuckyAudio)LuckyAudio.tick();}
+    drawWheel(cv,wheelAngle);
+    if(el<dur)requestAnimationFrame(frame);
+    else{spinning=false;onEnd();}
+  }
+  requestAnimationFrame(frame);
+}
+
+function onEnd(){
+  if(window.LuckyAudio)LuckyAudio.ding();
+  /* Simple clean completion — just update label and show reveal button after short delay */
+  document.getElementById('wheel-label').textContent='🎉 SPIN COMPLETE!';
+  
+  if(window.confetti) {
+    const duration = 3000, end = Date.now() + duration;
+    (function frame() {
+      confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#FFD700', '#00BCD4', '#FF4081'] });
+      confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#FFD700', '#00BCD4', '#FF4081'] });
+      if (Date.now() < end) requestAnimationFrame(frame);
+    }());
+  }
+
+  setTimeout(()=>{
+    const wz=document.getElementById('wheel-zone');
+    wz.style.transition='opacity .6s';wz.style.opacity='0';
+    document.body.classList.remove('spin-mode');
+    setTimeout(()=>{
+      wz.classList.remove('active');wz.style.opacity='1';wz.style.transition='';
+      document.getElementById('reveal-btn-wrap').classList.add('show');
+      document.getElementById('div-label').textContent='✦ Winners Ready! ✦';
+    },600);
+  }, 2500);
+}
+
+/* ══ CSV + CAROUSEL ══ */
+let allWinners=[],currentPage=1;
+const PAGE_SIZE=prize.pageSize;
+
+async function openModal(){
+  if(window.LuckyAudio)LuckyAudio.fanfare();
+  try{
+    const { data, error } = await supabase
+        .from('draw_winners')
+        .select('*')
+        .eq('prize_tier', prize.tier);
+
+    if (error) throw error;
+    
+    // Map database rows to the carousel format
+    allWinners = data.map(row => ({
+        name: row.customer_name || '',
+        mobile: row.customer_code || '',
+        district: row.territory || '',
+        state: row.region || ''
+    }));
+    
+    if (allWinners.length === 0) {
+        throw new Error("No winners found in database for " + prize.tier);
+    }
+  }catch(e){
+    console.error("Database Fetch Error:", e);
+    allWinners=demoData();
+  }
+  currentPage=1;render();
+  document.getElementById('modal-overlay').classList.add('open');
+  if(window.LuckyAudio){LuckyAudio.duck(true);setTimeout(()=>LuckyAudio.celebrate(),350);}
+}
+
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  if(window.LuckyAudio)LuckyAudio.duck(false);
+}
+
+function demoData(){
+  const n=['Ramesh Kumar','Suresh Patel','Priya Sharma','Mohan Reddy','Anita Devi','Ravi Shankar','Sunita Yadav','Ajay Singh','Meena Kumari','Dinesh Gowda','Lakshmi Bai','Arjun Rao'];
+  const d=['Nashik','Ahmedabad','Jaipur','Hyderabad','Lucknow','Patna','Bhopal','Chandigarh','Mysuru','Pune','Nagpur','Coimbatore'];
+  const s=['Maharashtra','Gujarat','Rajasthan','Telangana','Uttar Pradesh','Bihar','Madhya Pradesh','Punjab','Karnataka','Maharashtra','Maharashtra','Tamil Nadu'];
+  return Array.from({length:Math.max(PAGE_SIZE*3,12)},(_,i)=>({name:n[i%n.length],mobile:`98${String(76543210+i*111).padStart(8,'0')}`,district:d[i%d.length],state:s[i%s.length]}));
+}
+
+function render(){
+  const total=allWinners.length;
+  const totalPages=Math.ceil(total/PAGE_SIZE)||1;
+  const start=(currentPage-1)*PAGE_SIZE;
+  const pageData=allWinners.slice(start,start+PAGE_SIZE);
+  const cc=document.getElementById('carousel-content');
+
+  if(PAGE_SIZE===1){
+    /* Single winner card */
+    const w=pageData[0]||{};
+    cc.innerHTML=`<div class="winner-single">
+      <div class="winner-trophy">🏆</div>
+      <div class="winner-big-num">#${start+1}</div>
+      <div class="winner-card-single">
+        <div class="w-name">${w.name||'—'}</div>
+        <div class="w-mobile">📱 ${w.mobile||'—'}</div>
+        <div class="w-loc">📍 ${w.district||'—'}, ${w.state||'—'}</div>
+      </div>
+    </div>`;
+    document.getElementById('page-label').textContent='Winner';
+    document.getElementById('page-num').textContent=currentPage;
+    document.getElementById('page-of').textContent=`of ${totalPages}`;
+  } else {
+    /* Table format for 3rd and Consolation */
+    let rows=pageData.map((w,i)=>{
+      const n=start+i+1,isTop=(n===1&&currentPage===1);
+      return `<tr class="${isTop?'top-win':''}">
+        <td><div class="row-num">${n}</div></td>
+        <td><div class="td-name">${w.name}</div></td>
+        <td><div class="td-mobile">${w.mobile}</div></td>
+        <td><div class="td-district">${w.district}</div></td>
+        <td><div class="td-state">${w.state}</div></td>
+      </tr>`;
+    }).join('');
+    cc.innerHTML=`<table class="winners-table">
+      <thead><tr><th>#</th><th>Name</th><th>Mobile</th><th>District</th><th>State</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+    const rangeEnd=Math.min(start+PAGE_SIZE,total);
+    document.getElementById('page-label').textContent=`Winners ${start+1}–${rangeEnd} of ${total}`;
+    document.getElementById('page-num').textContent=currentPage;
+    document.getElementById('page-of').textContent=`of ${totalPages}`;
+  }
+
+  document.getElementById('prev-btn').disabled=currentPage===1;
+  document.getElementById('next-btn').disabled=currentPage>=totalPages;
+}
+
+function changePage(d){
+  const tp=Math.ceil(allWinners.length/PAGE_SIZE)||1;
+  const np=Math.max(1,Math.min(tp,currentPage+d));
+  if(np!==currentPage&&window.LuckyAudio)LuckyAudio.page();
+  currentPage=np;
+  render();
+}
+
+document.getElementById('modal-overlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
