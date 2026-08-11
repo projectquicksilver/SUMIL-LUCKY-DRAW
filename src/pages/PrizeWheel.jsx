@@ -362,6 +362,7 @@ const PrizeWheel = () => {
       </div>
 
       <div id="modal-overlay" className={isModalOpen ? "open" : ""} onClick={(e) => { if (e.target.id === "modal-overlay") closeModal(); }}>
+        {isModalOpen && <img src={prize.img} alt="Prize Left" className="carousel-prize-side side-left" />}
         <div className="modal">
           <div className="modal-header">
             <div className="modal-title" id="modal-title" style={{display:"flex", alignItems:"center", gap:"8px"}}>
@@ -411,6 +412,7 @@ const PrizeWheel = () => {
             <button className="nav-btn" id="next-btn" disabled={currentPage >= totalPages} onClick={() => {setCurrentPage(currentPage + 1); if(window.LuckyAudio) window.LuckyAudio.page();}}>Next →</button>
           </div>
         </div>
+        {isModalOpen && <img src={prize.img} alt="Prize Right" className="carousel-prize-side side-right" />}
       </div>
     </div>
   );
