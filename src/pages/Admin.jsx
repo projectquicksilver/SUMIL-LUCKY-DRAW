@@ -79,6 +79,7 @@ const Admin = () => {
             .from('master_customers')
             .select('*')
             .gt('sum_of_max_coupons', 0)
+            .order('id', { ascending: true })
             .range(page * limit, (page + 1) * limit - 1);
         
         if (fetchErr) throw fetchErr;
