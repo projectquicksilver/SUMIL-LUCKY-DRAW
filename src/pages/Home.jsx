@@ -207,8 +207,8 @@ const Home = () => {
                    alt="Orthopedic Chair" className="pcard-img" style={{animationDelay: "0.4s"}}/>
             </div>
             <div className="pcard-rank-art" style={{display: "flex", alignItems: "center", justifyContent: "center", gap: "6px"}}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 5TH PRIZE</div>
-            <div className="pcard-name">ORTHOPEDIC CHAIR<br/>BACK SUPPORT</div>
-            <div className="pcard-sub">Ergonomic</div>
+            <div className="pcard-name">Orthopedic Back<br/>Support Prize</div>
+            <div className="pcard-sub">&nbsp;</div>
             <span className="pcard-qty">🎁 × 200 Winners</span>
             <div className="pcard-hint">🎯 View &amp; Spin</div>
           </div>
