@@ -70,14 +70,30 @@ const Admin = () => {
     setDrawStatus({ type: 'info', msg: 'Fetching customers...' });
 
     try {
-      const { data: customers, error: fetchErr } = await supabaseAdmin
-          .from('master_customers')
-          .select('*')
-          .gt('sum_of_max_coupons', 0);
-      
-      if (fetchErr) throw fetchErr;
+      let allCustomers = [];
+      let page = 0;
+      const limit = 1000;
 
-      let availableCoupons = [...customers];
+      while (true) {
+        const { data: customersChunk, error: fetchErr } = await supabaseAdmin
+            .from('master_customers')
+            .select('*')
+            .gt('sum_of_max_coupons', 0)
+            .range(page * limit, (page + 1) * limit - 1);
+        
+        if (fetchErr) throw fetchErr;
+
+        if (customersChunk && customersChunk.length > 0) {
+          allCustomers = [...allCustomers, ...customersChunk];
+        }
+
+        if (!customersChunk || customersChunk.length < limit) {
+          break; // We've fetched all rows
+        }
+        page++;
+      }
+
+      let availableCoupons = [...allCustomers];
 
       const drawQueue = [
           { tier: '5th_prize', count: 200 },
